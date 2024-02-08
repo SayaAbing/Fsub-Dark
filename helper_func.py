@@ -14,7 +14,9 @@ from config import(
     FORCE_SUB_1,
     FORCE_SUB_2,
     FORCE_SUB_3,
-    FORCE_SUB_4
+    FORCE_SUB_4,
+    FORCE_SUB_5,
+    FORCE_SUB_6
 )
 
 
@@ -73,6 +75,31 @@ async def _sub4(filter, client, update):
 
     return member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER]
 
+async def _sub5(filter, client, update):
+    if not FORCE_SUB_5:
+        return True
+    user_id = update.from_user.id
+    if user_id in ADMINS:
+        return True
+    try:
+        member = await client.get_chat_member(chat_id=FORCE_SUB_5, user_id=user_id)
+    except UserNotParticipant:
+        return False
+
+    return member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER]
+
+async def _sub6(filter, client, update):
+    if not FORCE_SUB_6:
+        return True
+    user_id = update.from_user.id
+    if user_id in ADMINS:
+        return True
+    try:
+        member = await client.get_chat_member(chat_id=FORCE_SUB_6, user_id=user_id)
+    except UserNotParticipant:
+        return False
+
+    return member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER]
 
 async def is_subscribed(filter, client, update):
     if not FORCE_SUB_1:
@@ -83,9 +110,21 @@ async def is_subscribed(filter, client, update):
         return True
     if not FORCE_SUB_4:
         return True
+    if not FORCE_SUB_5:
+        return True
+    if not FORCE_SUB_6:
+        return True
     user_id = update.from_user.id
     if user_id in ADMINS:
         return True
+    try:
+        member = await client.get_chat_member(chat_id=FORCE_SUB_6, user_id=user_id)
+    except UserNotParticipant:
+        return False
+    try:
+        member = await client.get_chat_member(chat_id=FORCE_SUB_5, user_id=user_id)
+    except UserNotParticipant:
+        return False
     try:
         member = await client.get_chat_member(chat_id=FORCE_SUB_4, user_id=user_id)
     except UserNotParticipant:
@@ -169,4 +208,6 @@ sub1 = filters.create(_sub1)
 sub2 = filters.create(_sub2)
 sub3 = filters.create(_sub3)
 sub4 = filters.create(_sub4)
+sub5 = filters.create(_sub5)
+sub6 = filters.create(_sub6)
 subs = filters.create(is_subscribed)
