@@ -25,6 +25,12 @@
     },
     "FORCE_SUB_4": {
       "required": false
+    },
+    "FORCE_SUB_5": {
+      "required": false
+    },
+    "FORCE_SUB_6": {
+      "required": false
     }
   },
   "formation": {
