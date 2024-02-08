@@ -13,6 +13,8 @@ from config import (
     FORCE_SUB_2,
     FORCE_SUB_3,
     FORCE_SUB_4,
+    FORCE_SUB_5,
+    FORCE_SUB_6,
     LOGGER,
     BOT_TOKEN,
     WORKERS,
@@ -123,6 +125,46 @@ class Bot(Client):
                 self.LOGGER(__name__).warning(
                     f"Pastikan @{self.username} "
                     "menjadi Admin di FORCE_SUB_4\n\n"
+                )
+                sys.exit()
+        if FORCE_SUB_5:
+            try:
+                info = await self.get_chat(FORCE_SUB_5)
+                link = info.invite_link
+                if not link:
+                    await self.export_chat_invite_link(FORCE_SUB_5)
+                    link = info.invite_link
+                self.invitelink4 = link
+                self.LOGGER(__name__).info(
+                    "FORCE_SUB_5 Detected!\n"
+                    f"  Title: {info.title}\n"
+                    f"  Chat ID: {info.id}\n\n"
+                )
+            except Exception as a:
+                self.LOGGER(__name__).warning(a)
+                self.LOGGER(__name__).warning(
+                    f"Pastikan @{self.username} "
+                    "menjadi Admin di FORCE_SUB_5\n\n"
+                )
+                sys.exit()
+        if FORCE_SUB_6:
+            try:
+                info = await self.get_chat(FORCE_SUB_6)
+                link = info.invite_link
+                if not link:
+                    await self.export_chat_invite_link(FORCE_SUB_6)
+                    link = info.invite_link
+                self.invitelink4 = link
+                self.LOGGER(__name__).info(
+                    "FORCE_SUB_6 Detected!\n"
+                    f"  Title: {info.title}\n"
+                    f"  Chat ID: {info.id}\n\n"
+                )
+            except Exception as a:
+                self.LOGGER(__name__).warning(a)
+                self.LOGGER(__name__).warning(
+                    f"Pastikan @{self.username} "
+                    "menjadi Admin di FORCE_SUB_6\n\n"
                 )
                 sys.exit()
 
